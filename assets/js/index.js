@@ -6,14 +6,6 @@ $(function () {
   //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
   $("form").sisyphus();
 
-  // //Submit Event Handler for forms
-  // $(".form-horizontal").submit(function (event) {
-
-  //   SaveData();
-
-  //   event.preventDefault(); //Cancel the submit
-  // });
-
   $('document').ready(function () {
 
     //FORCE Google Authentication
@@ -33,6 +25,8 @@ $(function () {
       console.log("Error in Auth: " + errorMessage);
     });
 
+
+    topFunction();
   });
 
 
@@ -43,41 +37,34 @@ $(function () {
 
 });
 
-
-function LoadDataForm() {
-
-  var database = firebase.database();
-
-}
-
+//Save form data to Firebase DB
 function SaveData() {
-
-
-
   var user = firebase.auth().currentUser;
 
   sData = JSON.stringify($('#frmClient').serializeArray());
 
-  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/data');
 
   //Save the data to Firebase
   oFBDB.set(
     sData, function (error) {
       if (error) {
-        alert("Data could not be saved." + error);
+        $.announce.danger("Data could not be saved.  Error: " + error);
       } else {
-        console.log('Data Saved');
+        //console.log('Data Saved');
         LoadFormData();
+        $.announce.success('Data Saved.');
       }
     }
   );
 
 }
 
+//Load form data for each user from Firebase
 function LoadFormData() {
 
   //Get data from firebase
-  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/data');
   oFBDB.once('value').then(function (snapshot) {
     //var username = snapshot.val().username;
     var sData = snapshot.val();
