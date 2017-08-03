@@ -6,31 +6,39 @@ $(function () {
   //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
   $("form").sisyphus();
 
-  //Submit Event Handler for forms
-  $(".form-horizontal").submit(function (event) {
+  // //Submit Event Handler for forms
+  // $(".form-horizontal").submit(function (event) {
 
-    SaveData();
+  //   SaveData();
 
-    event.preventDefault(); //Cancel the submit
+  //   event.preventDefault(); //Cancel the submit
+  // });
+
+  $('document').ready(function () {
+
+    //FORCE Google Authentication
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+      var token = result.credential.accessToken;
+      user = result.user;
+      console.log("Successful Auth: " + user.email + ' uid: ' + user.uid);
+
+      LoadFormData();
+
+    }).catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+      console.log("Error in Auth: " + errorMessage);
+    });
+
   });
 
 
 
 
-  //Google Authentication
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then(function (result) {
-    var token = result.credential.accessToken;
-    var user = result.user;
-    var uid = user.uid;
-    console.log("Successful Auth: " + user.email + uid);
-  }).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
-    console.log("Error in Auth: " + errorMessage);
-  });
+
 
 
 });
@@ -44,18 +52,119 @@ function LoadDataForm() {
 
 function SaveData() {
 
-  //Loop through all form fields not buttons or submit
-  // $('.form-horizontal *').filter(':input').not(':button, :submit').each(function () {
-  //   console.log(this.id + ' ' + this.type);
-  // });
 
-  
 
-  firebase.database().ref('https://ricktestproject-cf590.firebaseio.com/ViewsparkClientInfo/' + user.uid).set({
-    
-  });
+  var user = firebase.auth().currentUser;
+
+  sData = JSON.stringify($('#frmClient').serializeArray());
+
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+
+  //Save the data to Firebase
+  oFBDB.set(
+    sData, function (error) {
+      if (error) {
+        alert("Data could not be saved." + error);
+      } else {
+        console.log('Data Saved');
+        LoadFormData();
+      }
+    }
+  );
+
 }
 
+function LoadFormData() {
+
+  //Get data from firebase
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+  oFBDB.once('value').then(function (snapshot) {
+    //var username = snapshot.val().username;
+    var sData = snapshot.val();
+    oData = JSON.parse(sData);
+
+    //Loop through data populating form fields as we go.
+    jQuery.each(oData, function (i, field) {
+      //console.log(field.name + ": " + field.value);
+
+      //Loop through all form fields not buttons or submit
+      $('.form-horizontal *').filter(':input').not(':button, :submit').each(function () {
+        //console.log(this.id + ' ' + this.type);
+        if (field.name == this.id) {
+          $('#' + this.id).val(field.value);
+          return false; //break from .each
+        }
+      });
+
+    });
+
+
+
+  });
+
+
+
+
+}
+
+
+function UploadFileToFBStorage(sULFieldName, sFieldName) {
+
+  var oFiles = document.getElementById(sULFieldName).files;
+  if (oFiles.length <= 0) {
+    $.announce.danger('Please select a file before uploading.');
+  }
+  else {
+    var oFile = oFiles[0];
+
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
+    var metadata = { contentType: 'image/jpeg' };
+    // Upload file and metadata to the object 'images/mountains.jpg'
+    var uploadTask = storageRef.child('images/' + oFile.name).put(oFile, metadata);
+
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function (snapshot) {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function (error) {
+
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            $.announce.danger(error.message);
+            break;
+
+          case 'storage/canceled':
+            $.announce.danger(error.message);
+            break;
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            $.announce.danger(error.message);
+            break;
+        }
+      }, function () {
+        // Upload completed successfully, now we can get the download URL
+        //var downloadURL = uploadTask.snapshot.downloadURL;
+        $('#' + sFieldName).val(uploadTask.snapshot.downloadURL);
+        SaveData();        
+        $.announce.success('File Uploaded and saved.');
+      });
+  }
+
+}
 
 
 //Navigate page to the top when an accordian pane is clicked

@@ -73,20 +73,20 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-10">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse1"
-                                    data-parent="#accordion" onclick="topFunction();">1) CHARITY INFO</button>
-                            </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="form-horizontal" >
+            <form class="form-horizontal" id="frmClient" name="frmClient">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse1"
+                                        data-parent="#accordion" onclick="topFunction();">1) CHARITY INFO</button>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <!-- Charity Info -->
 
                                     <div class="col-md-12">The following components will help us build a custom newsfeed for your donors that looks
@@ -125,26 +125,22 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="MainSetupContactEmail">&nbsp;</label>
                                         <div class="col-md-8">
-                                            <input type="submit" class="btn btn-primary" value="Save">
+                                            <button id="btnSave1" name="btnSave1" onclick="SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                                         </div>
                                     </div>
-
-                                    
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse2"
-                                    data-parent="#accordion" onclick="topFunction();">2) DESIGN</button>
-                            </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse2"
+                                        data-parent="#accordion" onclick="topFunction();">2) DESIGN</button>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <div class="col-md-12">The following components will help us build a custom newsfeed for your donors that looks
                                         and feels like your organization. </div>
                                     <div class="col-md-12">&nbsp;</div>
@@ -161,7 +157,18 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="CharityLogo">Charity Logo</label>
                                         <div class="col-md-8">
-                                            <input id="CharityLogoUL" name="CharityLogoUL" class="input-file" type="file">
+                                            <div class="col-md-12">
+                                                <input id="CharityLogoURL" name="CharityLogoURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: .5em;">
+                                                <label class="btn btn-primary btn-file">        
+                                                Select Logo File<input id="CharityLogoUL" name="CharityLogoUL" class="input-file" type="file" style="display: none;">
+                                            </label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="button" id="btnUploadCharityLogo" name="btnUploadCharityLogo" onclick="UploadFileToFBStorage('CharityLogoUL', 'CharityLogoURL');"
+                                                    class="btn-link">Start Upload</button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -204,11 +211,21 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="BannerImage">3) Banner Image</label>
                                         <div class="col-md-8">
-                                            <input id="BannerImage" name="BannerImage" class="input-file" type="file">
-                                            <span class="help-block">This image will be the background header image.  If you don't have one, just let us know and we'll help you find or create one.</span>
+                                            <div class="col-md-12">
+                                                <input id="BannerImageURL" name="BannerImageURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: .5em;">
+                                                <label class="btn btn-primary btn-file">        
+                                                Select Banner Image File<input id="BannerImageUL" name="BannerImageUL" class="input-file" type="file" style="display: none;">
+                                            </label>
+                                            <span class="help-block">This image will be the background Banner image.  If you don't have one, just let us know and we'll help you find or create one.</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="button" id="btnUploadBannerImage" name="btnUploadBannerImage" onclick="UploadFileToFBStorage('BannerImageUL', 'BannerImageURL');"
+                                                    class="btn-link ">Start Upload</button>
+                                            </div>
                                         </div>
                                     </div>
-
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="AboutUsTitle">4) About Us Title</label>
@@ -237,10 +254,22 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="FooterImage">7) Footer Image</label>
                                         <div class="col-md-8">
-                                            <input id="FooterImage" name="FooterImage" class="input-file" type="file">
+                                            <div class="col-md-12">
+                                                <input id="FooterImageURL" name="FooterImageURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
+                                            </div>
                                             <span class="help-block">This image will be the background footer image.  If you don't have one, just let us know and we'll help you find or create one.</span>
+                                            <div class="col-md-12" style="margin-top: .5em;">
+                                                <label class="btn btn-primary btn-file">        
+                                                Select Footer Image<input id="FooterImageUL" name="FooterImageUL" class="input-file" type="file" style="display: none;">                                                
+                                            </label>                                            
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="button" id="btnUploadFooterImage" name="btnUploadFooterImage" onclick="UploadFileToFBStorage('FooterImageUL', 'FooterImageURL');"
+                                                    class="btn-link">Start Upload</button>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="CopyrightText">8) Copyright Text</label>
@@ -249,22 +278,21 @@
                                                 required="">
                                         </div>
                                     </div>
-                                </form>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse3"
-                                    data-parent="#accordion" onclick="topFunction();">3) APP INFO</button>
-                            </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse3"
+                                        data-parent="#accordion" onclick="topFunction();">3) APP INFO</button>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <div class="col-md-12">When we publish your newsfeed to the app stores and they become available to donors,
                                         we will include the name, a brief description, as well as a full description. </div>
                                     <div class="col-md-12">&nbsp;</div>
@@ -290,27 +318,22 @@
                                         <div class="col-md-8">
                                             <textarea id="AppLongDescription" name="AppLongDescription" type="textarea" placeholder="" class="form-control input-md"
                                                 required=""></textarea>
-                                            <span class="help-block"><p>This brief description is what will describe the functionality of your newsfeed. Since almost all of your donors will be familiar with your organization by name and will be directed to download it from a link, the description can be very simple. We recommend something like the following: 
-</p><p><i>
-“Enjoy real-time, relevant field updates directly from organization name’s newsfeed. Watch us as we work to insert brief description of what you do” (ex. …provide meals to the homeless, help the undeserved access medical care).</i></p>
-</span>
+                                            <span class="help-block"><p>This brief description is what will describe the functionality of your newsfeed. Since almost all of your donors will be familiar with your organization by name and will be directed to download it from a link, the description can be very simple. We recommend something like the following: </p><p><i>“Enjoy real-time, relevant field updates directly from organization name’s newsfeed. Watch us as we work to insert brief description of what you do” (ex. …provide meals to the homeless, help the undeserved access medical care).</i></p></span>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse4"
-                                    data-parent="#accordion" onclick="topFunction();">4) USERS</button>
-                            </h4>
-                        </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse4"
+                                        data-parent="#accordion" onclick="topFunction();">4) USERS</button>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <div class="col-md-12">Please provide the names and email addresses for up to 3 Administrators on a seperate
                                         line below. These users will have the ability to create additional users in the app.
                                         <span style="color: #ff0000">At least one Administrative user is required.</span></div>
@@ -384,21 +407,19 @@
                                     </div>
 
                                     <div class="form-group col-md-12">&nbsp;</div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse5"
-                                    data-parent="#accordion" onclick="topFunction();">5) DONOR DB</button>
-                            </h4>
-                        </div>
-                        <div id="collapse5" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse5"
+                                        data-parent="#accordion" onclick="topFunction();">5) DONOR DB</button>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <div class="col-md-12">
                                         <p>This will be uploaded to our secure cloud server and will be used in conjunction
                                             with the segmentation you select to filter content to donors. Please use the
@@ -423,36 +444,46 @@
 
                                     <div class="col-md-12"></div>
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="CharityLogo">1) Download blank import file</label>
+                                        <label class="col-md-4 control-label" for="DonorBlankImportFile">1) Download blank import file</label>
                                         <div class="col-md-8">
                                             <a href="ViewsparkDonorImport.xlsx">ViewsparkDonorImport.xlsx</a>
                                         </div>
                                     </div>
 
-
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="CharityLogo">2) Upload Completed Donor File</label>
+                                        <label class="col-md-4 control-label" for="DonorFile">2) Upload Completed Donor File</label>
                                         <div class="col-md-8">
-                                            <input id="CharityLogo" name="CharityLogo" class="input-file" type="file">
+                                            <div class="col-md-12">
+                                                <input id="DonorFileURL" name="DonorFileURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
+                                            </div>                                            
+                                            <div class="col-md-12" style="margin-top: .5em;">
+                                                <label class="btn btn-primary btn-file">        
+                                                Select Completed Donor File<input id="DonorFileUL" name="DonorFileUL" class="input-file" type="file" style="display: none;">                                                
+                                            </label>                                            
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="button" id="btnUploadDonorFile" name="btnUploadDonorFile" onclick="UploadFileToFBStorage('DonorFileUL', 'DonorFileURL');"
+                                                    class="btn-link">Start Upload</button>
+                                            </div>
                                         </div>
                                     </div>
 
+
+
                                     <div class="col-md-12">&nbsp;</div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse6"
-                                    data-parent="#accordion" onclick="topFunction();">6) SOCIAL SETUP</button>
-                            </h4>
-                        </div>
-                        <div id="collapse6" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse6"
+                                        data-parent="#accordion" onclick="topFunction();">6) SOCIAL SETUP</button>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
                                     <div class="col-md-12">
                                         <p>Postmaster Email Account – This process is required to connect your organizational
                                             email address with your Fundraiser control center app hosted by ViewSpark. It
@@ -506,23 +537,21 @@
                                     </div>
 
                                     <div class="col-md-12">&nbsp;</div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput"></label>
                         <div class="col-md-8">
-                            <button id="btnSave" name="btnSave" class=" btn btn-primary col-md-10">Save All Data</button>
+                            <button id="btnSave" name="btnSave" onclick="SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="col-md-1">&nbsp;
-            </div>
+                </div>
+                <div class="col-md-1">&nbsp;
+                </div>
+            </form>
         </div>
 
         <footer class="footer">
@@ -547,7 +576,6 @@
             messagingSenderId: "767344643746"
         };
         firebase.initializeApp(config);
-
     </script>
     <!-- /Firebase -->
 
@@ -564,6 +592,10 @@
 
 
     <script src="assets/js/sisyphus.min.js"></script>
+
+    <!--http://www.jqueryscript.net/other/Flexible-Customizable-jQuery-Notification-Plugin-Announce-js.html-->
+    <link href="assets/css/jquery.announce.css" rel="stylesheet">
+    <script src="assets/js/jquery.announce.min.js"></script>
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
