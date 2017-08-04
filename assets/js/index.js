@@ -6,62 +6,139 @@ $(function () {
   //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
   $("form").sisyphus();
 
+
+
   $('document').ready(function () {
 
-    //FORCE Google Authentication
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-      var token = result.credential.accessToken;
-      user = result.user;
-      console.log("Successful Auth: " + user.email + ' uid: ' + user.uid);
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        $("#liLogout").show(true);
 
-      LoadFormData();
+        LoadFormData();
 
-    }).catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-      console.log("Error in Auth: " + errorMessage);
+      } else {
+        // User is signed out.
+        $("#liLogout").show(false);
+        SignInWithGoogle()
+      }
     });
-
-
+    
+    
     topFunction();
   });
-
-
-
-
-
-
-
 });
+
+
+function SignInWithGoogle() {
+
+  //FORCE Google Authentication
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('profile');
+  firebase.auth().signInWithPopup(provider).then(function (result) {
+    var token = result.credential.accessToken;
+    user = result.user;
+    $.announce.success('Logged In');
+    SaveUserInfo();
+    LoadFormData();
+
+  }).catch(function (error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var email = error.email;
+    var credential = error.credential;
+    console.log("Error in Auth: " + errorMessage);
+  });
+}
+
+
+function Logout() {
+  firebase.auth().signOut().then(function () {
+    $.announce.success('Logged out');
+    window.location.href = 'loggedOut.html';
+  }).catch(function (error) {
+    $.announce.danger('Error in logout: ' + error.message);
+  });
+}
+
+//Save User Info to Firebase
+function SaveUserInfo() {
+  var oUser = firebase.auth().currentUser;
+  var pURL = '';
+  var displayName = '';
+
+  user.providerData.forEach(function (profile) {
+    if (profile.providerId == 'google.com') {
+      pURL = profile.photoURL;
+      displayName = profile.displayName;
+    }
+  });
+
+  var sUser = {
+    email: oUser.email,
+    displayName: displayName,
+    photoURL: pURL
+  };
+
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+
+  // oFBDB.on('value', function (snap) {
+  //   console.log(snap.val());
+  // });
+
+  oFBDB.update(sUser).then(function () {
+    //console.log("Data saved successfully.");
+  }).catch(function (error) {
+    $.announce.danger("Data could not be saved." + error);
+  });;
+
+}
 
 //Save form data to Firebase DB
 function SaveData() {
   var user = firebase.auth().currentUser;
-
   sData = JSON.stringify($('#frmClient').serializeArray());
 
   var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/data');
-
+  oFBDB.set(sData);
+  
   //Save the data to Firebase
   oFBDB.set(
     sData, function (error) {
       if (error) {
         $.announce.danger("Data could not be saved.  Error: " + error);
       } else {
-        //console.log('Data Saved');
+        
+        //Save the CharityName to the top level for Admin page
+        s1 = JSON.parse(sData);
+        jQuery.each(s1, function (i, field) {
+          //console.log(field.name + ": " + field.value);
+          if(field.name == 'CharityName'){
+            firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/CharityName').set(field.value);
+            return false;
+          }
+        });
+
         LoadFormData();
         $.announce.success('Data Saved.');
       }
     }
   );
 
+  return false;
 }
 
 //Load form data for each user from Firebase
 function LoadFormData() {
+
+  var user = firebase.auth().currentUser;
 
   //Get data from firebase
   var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/data');
@@ -84,16 +161,8 @@ function LoadFormData() {
       });
 
     });
-
-
-
   });
-
-
-
-
 }
-
 
 function UploadFileToFBStorage(sULFieldName, sFieldName) {
 
@@ -146,16 +215,44 @@ function UploadFileToFBStorage(sULFieldName, sFieldName) {
         // Upload completed successfully, now we can get the download URL
         //var downloadURL = uploadTask.snapshot.downloadURL;
         $('#' + sFieldName).val(uploadTask.snapshot.downloadURL);
-        SaveData();        
+        SaveData();
         $.announce.success('File Uploaded and saved.');
       });
   }
 
 }
 
-
 //Navigate page to the top when an accordian pane is clicked
 function topFunction() {
   document.body.scrollTop = 0; // For Chrome, Safari and Opera 
   document.documentElement.scrollTop = 0; // For IE and Firefox
 }
+
+//Admin functions
+function GetAllUserData() {
+
+  var user = firebase.auth().currentUser;
+  
+  //Get data from firebase
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo');
+  oFBDB.once('value').then(function (snapshot) {
+    
+    var oData = snapshot.val();
+  
+    jQuery.each(oData, function (FBUID, ObjectData) {
+      console.log(FBUID);  
+      console.log(ObjectData.CharityName);
+
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //TODO: Make this work on the admin page
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  );
+
+  });
+
+  return false;
+}
+
