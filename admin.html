@@ -23,6 +23,8 @@
 
     <link href="assets/css/navbar-fixed-top.css" rel="stylesheet">
 
+    <link href="assets/css/jquery.bootgrid.min.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -50,9 +52,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="charityInfo"><a href="#">Charity Info</a></li>
-                    <li><a href="index.html">Setup</a></li>
-                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="index.html">Charity Setup</a></li>
+                    <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
                     <li class="dropdown" style="display:none;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -72,11 +73,31 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            
+        <div class="row" id="divMainRow" name="divMainRow">
+
+            <table id="gridMaster" class="table table-condensed table-hover table-striped">
+                <thead>
+                    <tr id="theadArea" name="theadArea">
+                        <th data-column-id="id">ID</th>
+                        <th data-column-id="Charity">Charity</th>
+                        <th data-column-id="User">User</th>
+                        <th data-column-id="LastSave" data-order="desc">Last Saved (Pacific)</th>
+                        <th data-column-id="# Complete">Fields Saved/Total </th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyData" name="tbodyData">                    
+                </tbody>
+            </table>
 
 
-            
+            <div class="form-group text-center" id="divRefreshData">                
+                <div class="col-md-12 text-center">
+                    <button id="btnShowAllUserData" name="btnShowAllUserData" onclick="return LoadMasterData();" class="btn btn-primary">Manually Refresh Data</button>
+                </div>                                
+            </div>    
+            <div class="col-sm-12 text-center text-muted">
+                    Note: Data is automatically refreshed in real time as it changes.
+                </div>        
         </div>
 
         <footer class="footer">
@@ -111,9 +132,6 @@
     </script>
     <script src="dist/js/bootstrap.min.js"></script>
 
-
-    <script src="assets/js/sisyphus.min.js"></script>
-
     <!--http://www.jqueryscript.net/other/Flexible-Customizable-jQuery-Notification-Plugin-Announce-js.html-->
     <link href="assets/css/jquery.announce.css" rel="stylesheet">
     <script src="assets/js/jquery.announce.min.js"></script>
@@ -122,8 +140,13 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
+    <script src="assets/js/jquery.bootgrid.min.js"></script>
+    <script src="assets/js/jquery.bootgrid.fa.min.js"></script>
+    
 
-    <script src="assets/js/index.js"></script>
+    <script src="assets/js/date.format.js"></script>
+    <script src="assets/js/vcs.auth.js"></script>
+    <script src="assets/js/admin.js"></script>
 
 </body>
 

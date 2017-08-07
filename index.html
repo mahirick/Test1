@@ -49,11 +49,10 @@
                 <a class="navbar-brand" href="#"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="charityInfo"><a href="#">Charity Info</a></li>
-                    <li><a href="index.html">Setup</a></li>
-                    <li><a href="admin.html">Admin</a></li>
-                    <li id="liLogout" name="liLogout" ><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>
+                <ul class="nav navbar-nav">                    
+                    <li><a href="index.html">Charity Setup</a></li>
+                    <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
+                    <li id="liLogout" name="liLogout"><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>
 
                     <li class="dropdown" style="display:none;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -98,12 +97,11 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="CharityName">Charity Name</label>
                                         <div class="col-md-8">
-                                            <input id="CharityName" name="CharityName" type="text" placeholder="Legal name for the charity" class="form-control input-md"
-                                               >
+                                            <input id="CharityName" name="CharityName" type="text" placeholder="Legal name for the charity" class="form-control input-md">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="textinput">Charity Address</label>
+                                        <label class="col-md-4 control-label" for="CharityAddress">Charity Address</label>
                                         <div class="col-md-8">
                                             <textarea ut id="CharityAddress" name="CharityAddress" type="textarea" placeholder="Mailing Address" class="form-control input-md"
                                                 rows="4"></textarea>
@@ -119,13 +117,12 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="MainSetupContactEmail">Main Contact EMail</label>
                                         <div class="col-md-8">
-                                            <input id="MainSetupContactEmail" name="MainSetupContactEmail" type="text" placeholder="Contact eMail Address" class="form-control input-md"
-                                               >
+                                            <input id="MainSetupContactEmail" name="MainSetupContactEmail" type="text" placeholder="Contact eMail Address" class="form-control input-md">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="MainSetupContactEmail">&nbsp;</label>
+                                        <label class="col-md-4 control-label">&nbsp;</label>
                                         <div class="col-md-8">
                                             <button id="btnSave1" name="btnSave1" onclick="return SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                                         </div>
@@ -150,9 +147,8 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Charity Colors</label>
                                         <div class="col-md-8">
-                                            <input id="textinput" name="textinput" type="text" placeholder="Newsfeed background colors" class="form-control input-md"
-                                               >
-                                            <span class="help-block">What colors do you use on your website or letterhead? Specific PMS or Hex numbers are preferred.</span>
+                                            <input id="textinput" name="textinput" type="text" placeholder="Newsfeed background colors" class="form-control input-md">
+                                            <span class="help-block">What colors do you use on your website or letterhead? Specific PMS (PMS 2000) or Hex numbers (#ff0000 for example) are preferred.</span>
                                         </div>
                                     </div>
 
@@ -163,13 +159,13 @@
                                                 <input id="CharityLogoURL" name="CharityLogoURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
                                             </div>
                                             <div class="col-md-12" style="margin-top: .5em;">
-                                                <label class="btn btn-primary btn-file">        
-                                                Select Logo File<input id="CharityLogoUL" name="CharityLogoUL" class="input-file" type="file" style="display: none;">
+                                                <label class="btn btn-link btn-file">Select Logo File<input id="CharityLogoUL" name="CharityLogoUL" class="input-file" type="file" style="display: none;">
                                             </label>
                                             </div>
                                             <div class="col-md-12">
                                                 <button type="button" id="btnUploadCharityLogo" name="btnUploadCharityLogo" onclick="UploadFileToFBStorage('CharityLogoUL', 'CharityLogoURL');"
-                                                    class="btn-link">Start Upload</button>
+                                                    class="btn btn-primary">Start Upload</button>
+                                                    <span class="help-block">Select your logo using the button above then click the "Start Upload" link.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -177,8 +173,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="AboutUsCopy">About Us Copy</label>
                                         <div class="col-md-8">
-                                            <textarea ut id="AboutUsCopy" name="AboutUsCopy" type="textarea" placeholder="" class="form-control input-md"
-                                                rows="10"></textarea>
+                                            <textarea ut id="AboutUsCopy" name="AboutUsCopy" type="textarea" placeholder="" class="form-control input-md" rows="10"></textarea>
                                             <span class="help-block">Your newsfeed will have an “about us” tab. Please provide a brief description or history that can populate this space. You can either provide it in a Word document or if it’s on your website, please provide the link and we can pull the copy from there.</span>
                                         </div>
                                     </div>
@@ -197,16 +192,14 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="MainMessage">1) Main Message</label>
                                         <div class="col-md-8">
-                                            <textarea id="MainMessage" name="MainMessage" type="textarea" maxlength="50" placeholder="50 Characters or less" class="form-control input-md"
-                                               ></textarea>
+                                            <textarea id="MainMessage" name="MainMessage" type="textarea" maxlength="50" placeholder="50 Characters or less" class="form-control input-md"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="Tagline">2) Tag line</label>
                                         <div class="col-md-8">
-                                            <input id="Tagline" nam e="Tagline" type="text" placeholder="Max 30 characters" maxlength="30" class="form-control input-md"
-                                               >
+                                            <input id="Tagline" nam e="Tagline" type="text" placeholder="Max 30 characters" maxlength="30" class="form-control input-md">
                                         </div>
                                     </div>
 
@@ -217,14 +210,14 @@
                                                 <input id="BannerImageURL" name="BannerImageURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
                                             </div>
                                             <div class="col-md-12" style="margin-top: .5em;">
-                                                <label class="btn btn-primary btn-file">        
+                                                <label class="btn btn-link btn-file">        
                                                 Select Banner Image File<input id="BannerImageUL" name="BannerImageUL" class="input-file" type="file" style="display: none;">
                                             </label>
-                                            <span class="help-block">This image will be the background Banner image.  If you don't have one, just let us know and we'll help you find or create one.</span>
+                                                <span class="help-block">This image will be the background Banner image.  If you don't have one, just let us know and we'll help you find or create one.</span>
                                             </div>
                                             <div class="col-md-12">
                                                 <button type="button" id="btnUploadBannerImage" name="btnUploadBannerImage" onclick="UploadFileToFBStorage('BannerImageUL', 'BannerImageURL');"
-                                                    class="btn-link ">Start Upload</button>
+                                                    class="btn btn-primary ">Start Upload</button>
                                             </div>
                                         </div>
                                     </div>
@@ -232,8 +225,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="AboutUsTitle">4) About Us Title</label>
                                         <div class="col-md-8">
-                                            <input id="AboutUsTitle" name="AboutUsTitle" type="text" placeholder="Max 50 characters" maxlength="50" class="form-control input-md"
-                                               >
+                                            <input id="AboutUsTitle" name="AboutUsTitle" type="text" placeholder="Max 50 characters" maxlength="50" class="form-control input-md">
                                         </div>
                                     </div>
 
@@ -248,8 +240,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="GiveNowPhrase">6) Give Now Phrase</label>
                                         <div class="col-md-8">
-                                            <input id="GiveNowPhrase" name="GiveNowPhrase" type="text" placeholder="Max 35 characters" maxlength="35" class="form-control input-md"
-                                               >
+                                            <input id="GiveNowPhrase" name="GiveNowPhrase" type="text" placeholder="Max 35 characters" maxlength="35" class="form-control input-md">
                                         </div>
                                     </div>
 
@@ -261,23 +252,28 @@
                                             </div>
                                             <span class="help-block">This image will be the background footer image.  If you don't have one, just let us know and we'll help you find or create one.</span>
                                             <div class="col-md-12" style="margin-top: .5em;">
-                                                <label class="btn btn-primary btn-file">        
+                                                <label class="btn btn-link btn-file">        
                                                 Select Footer Image<input id="FooterImageUL" name="FooterImageUL" class="input-file" type="file" style="display: none;">                                                
-                                            </label>                                            
+                                            </label>
                                             </div>
                                             <div class="col-md-12">
                                                 <button type="button" id="btnUploadFooterImage" name="btnUploadFooterImage" onclick="UploadFileToFBStorage('FooterImageUL', 'FooterImageURL');"
-                                                    class="btn-link">Start Upload</button>
+                                                    class="btn btn-primary">Start Upload</button>
                                             </div>
                                         </div>
                                     </div>
 
-
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="CopyrightText">8) Copyright Text</label>
                                         <div class="col-md-8">
-                                            <input id="CopyrightText" name="CopyrightText" type="text" placeholder="Max 100 characters" maxlength="100" class="form-control input-md"
-                                               >
+                                            <input id="CopyrightText" name="CopyrightText" type="text" placeholder="Max 100 characters" maxlength="100" class="form-control input-md">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <button id="btnSave2" name="btnSave2" onclick="return SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                                         </div>
                                     </div>
 
@@ -302,8 +298,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="AppTitle">Newsfeed App Title</label>
                                         <div class="col-md-8">
-                                            <input id="AppTitle" name="AppTitle" type="text" placeholder="30 characters or less" maxlength="30" class="form-control input-md"
-                                               >
+                                            <input id="AppTitle" name="AppTitle" type="text" placeholder="30 characters or less" maxlength="30" class="form-control input-md">
                                         </div>
                                     </div>
 
@@ -318,9 +313,15 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="AppLongDescription">AppLongDescription</label>
                                         <div class="col-md-8">
-                                            <textarea id="AppLongDescription" name="AppLongDescription" type="textarea" placeholder="" class="form-control input-md"
-                                               ></textarea>
+                                            <textarea id="AppLongDescription" name="AppLongDescription" type="textarea" placeholder="" class="form-control input-md"></textarea>
                                             <span class="help-block"><p>This brief description is what will describe the functionality of your newsfeed. Since almost all of your donors will be familiar with your organization by name and will be directed to download it from a link, the description can be very simple. We recommend something like the following: </p><p><i>“Enjoy real-time, relevant field updates directly from organization name’s newsfeed. Watch us as we work to insert brief description of what you do” (ex. …provide meals to the homeless, help the undeserved access medical care).</i></p></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <button id="btnSave3" name="btnSave3" onclick="return SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                                         </div>
                                     </div>
                                 </div>
@@ -457,15 +458,15 @@
                                         <div class="col-md-8">
                                             <div class="col-md-12">
                                                 <input id="DonorFileURL" name="DonorFileURL" type="text" placeholder="Not Uploaded" class="form-control input-md" readonly="true">
-                                            </div>                                            
+                                            </div>
                                             <div class="col-md-12" style="margin-top: .5em;">
-                                                <label class="btn btn-primary btn-file">        
+                                                <label class="btn btn-link btn-file">        
                                                 Select Completed Donor File<input id="DonorFileUL" name="DonorFileUL" class="input-file" type="file" style="display: none;">                                                
-                                            </label>                                            
+                                            </label>
                                             </div>
                                             <div class="col-md-12">
                                                 <button type="button" id="btnUploadDonorFile" name="btnUploadDonorFile" onclick="UploadFileToFBStorage('DonorFileUL', 'DonorFileURL');"
-                                                    class="btn-link">Start Upload</button>
+                                                    class="btn btn-primary">Start Upload</button>
                                             </div>
                                         </div>
                                     </div>
@@ -512,31 +513,67 @@
                                     </div>
 
                                     <div class="col-md-12"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <ul>
-                                                <li>Open this page: https://publishing.viewspark.org/social.html</li>
-                                                <li>Login ID: admin</li>
-                                                <li>Password: T5L9@wTr_m*p*R+zk-</li>
-                                                <li>Enter in "Facebook" section your charityId, which is ________</li>
-                                                <li><img src="assets/img/SM1.png" width="80%" class="img-fluid" alt="WLW" /></li>
-                                                <li>Click on "Configure Twitter" (it should say "Configure Facebook", it is just
-                                                    a known error in text)</li>
-                                                <li><img src="assets/img/SM2.png" width="80%" class="img-fluid" alt="WLW" /></li>
-                                                <li>Enter your login credentials. Facebook will confirm that you want to give
-                                                    permission to Viewspark.</li>
-                                                <li>On Facebook, you will be returned to a list of Facebook pages for which you
-                                                    must select one.</li>
 
-                                            </ul>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="FacebookLogin">Facebook Login</label>
+                                        <div class="col-md-8">
+                                            <input id="FacebookLogin" name="FacebookLogin" type="text" placeholder="User ID or email that can post to Charity Facebook" class="form-control input-md">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="PostmasterAcctCreated">Twitter/Facebook Completed</label>
+                                        <label class="col-md-4 control-label" for="FacebookPassword">Facebook Login</label>
                                         <div class="col-md-8">
-                                            <input type="checkbox" name="TwitterFacebookCredentialsComplete" id="TwitterFacebookCredentialsComplete" value="1">
+                                            <input id="FacebookPassword" name="FacebookPassword" type="password" placeholder="" class="form-control input-md">
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="TwitterLogin">Twitter Login</label>
+                                        <div class="col-md-8">
+                                            <input id="TwitterLogin" name="TwitterLogin" type="text" placeholder="User ID or email that can post to Charity Twitter" class="form-control input-md">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="TwitterPassword">Twitter Login</label>
+                                        <div class="col-md-8">
+                                            <input id="TwitterPassword" name="TwitterPassword" type="password" placeholder="" class="form-control input-md">
+                                        </div>
+                                    </div>
+
+
+                                    <div style="display: none;">
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <ul>
+                                                    <li>Open this page: https://publishing.viewspark.org/social.html</li>
+                                                    <li>Login ID: admin</li>
+                                                    <li>Password: T5L9@wTr_m*p*R+zk-</li>
+                                                    <li>Enter in "Facebook" section your charityId, which is ________</li>
+                                                    <li><img src="assets/img/SM1.png" width="80%" class="img-fluid" alt="WLW"
+                                                        /></li>
+                                                    <li>Click on "Configure Twitter" (it should say "Configure Facebook", it
+                                                        is just a known error in text)</li>
+                                                    <li><img src="assets/img/SM2.png" width="80%" class="img-fluid" alt="WLW"
+                                                        /></li>
+                                                    <li>Enter your login credentials. Facebook will confirm that you want to
+                                                        give permission to Viewspark.</li>
+                                                    <li>On Facebook, you will be returned to a list of Facebook pages for which
+                                                        you must select one.</li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="PostmasterAcctCreated">Twitter/Facebook Completed</label>
+                                            <div class="col-md-8">
+                                                <input type="checkbox" name="TwitterFacebookCredentialsComplete" id="TwitterFacebookCredentialsComplete" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="col-md-12">&nbsp;</div>
                                 </div>
@@ -552,12 +589,7 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput"></label>
-                        <div class="col-md-8">
-                            <button id="btnShowAllUserData" name="btnShowAllUserData" onclick="return GetAllUserData();" class=" btn btn-primary col-md-10">Get All Data</button>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="col-md-1">&nbsp;
                 </div>
@@ -608,6 +640,7 @@
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
 
+    <script src="assets/js/vcs.auth.js"></script>
     <script src="assets/js/index.js"></script>
 
 </body>

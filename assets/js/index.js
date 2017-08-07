@@ -13,14 +13,17 @@ $(function () {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
-        var displayName = user.displayName;
+        // var displayName = user.displayName;
         var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
+        // var emailVerified = user.emailVerified;
+        // var photoURL = user.photoURL;
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        // var providerData = user.providerData;
         $("#liLogout").show(true);
+
+        if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
+        if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
 
         LoadFormData();
 
@@ -30,43 +33,13 @@ $(function () {
         SignInWithGoogle()
       }
     });
-    
-    
+
+
     topFunction();
   });
 });
 
 
-function SignInWithGoogle() {
-
-  //FORCE Google Authentication
-  var provider = new firebase.auth.GoogleAuthProvider();
-  provider.addScope('profile');
-  firebase.auth().signInWithPopup(provider).then(function (result) {
-    var token = result.credential.accessToken;
-    user = result.user;
-    $.announce.success('Logged In');
-    SaveUserInfo();
-    LoadFormData();
-
-  }).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
-    console.log("Error in Auth: " + errorMessage);
-  });
-}
-
-
-function Logout() {
-  firebase.auth().signOut().then(function () {
-    $.announce.success('Logged out');
-    window.location.href = 'loggedOut.html';
-  }).catch(function (error) {
-    $.announce.danger('Error in logout: ' + error.message);
-  });
-}
 
 //Save User Info to Firebase
 function SaveUserInfo() {
@@ -108,23 +81,27 @@ function SaveData() {
 
   var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/data');
   oFBDB.set(sData);
-  
+
   //Save the data to Firebase
   oFBDB.set(
     sData, function (error) {
       if (error) {
         $.announce.danger("Data could not be saved.  Error: " + error);
       } else {
-        
+
         //Save the CharityName to the top level for Admin page
         s1 = JSON.parse(sData);
         jQuery.each(s1, function (i, field) {
           //console.log(field.name + ": " + field.value);
-          if(field.name == 'CharityName'){
+          if (field.name == 'CharityName') {
             firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/CharityName').set(field.value);
             return false;
           }
         });
+
+        //Save Date/Time
+        var oDate = new Date();
+        firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/lastSaveDate').set(firebase.database.ServerValue.TIMESTAMP);
 
         LoadFormData();
         $.announce.success('Data Saved.');
@@ -146,6 +123,8 @@ function LoadFormData() {
     //var username = snapshot.val().username;
     var sData = snapshot.val();
     oData = JSON.parse(sData);
+    var iNonBlankFields = 0;
+    var iTotalFields = 0;
 
     //Loop through data populating form fields as we go.
     jQuery.each(oData, function (i, field) {
@@ -156,11 +135,18 @@ function LoadFormData() {
         //console.log(this.id + ' ' + this.type);
         if (field.name == this.id) {
           $('#' + this.id).val(field.value);
+          if (field.value != '') iNonBlankFields += 1;
           return false; //break from .each
         }
       });
-
     });
+
+    //Save Non Blank Field Count
+    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/nonBlankFieldCount').set(iNonBlankFields);
+
+    //Count total data fields
+    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/totalFieldCount').set($('.form-horizontal *').filter(':input').not(':button, :submit').length);
+
   });
 }
 
@@ -226,33 +212,5 @@ function UploadFileToFBStorage(sULFieldName, sFieldName) {
 function topFunction() {
   document.body.scrollTop = 0; // For Chrome, Safari and Opera 
   document.documentElement.scrollTop = 0; // For IE and Firefox
-}
-
-//Admin functions
-function GetAllUserData() {
-
-  var user = firebase.auth().currentUser;
-  
-  //Get data from firebase
-  var oFBDB = firebase.database().ref('ViewsparkClientInfo');
-  oFBDB.once('value').then(function (snapshot) {
-    
-    var oData = snapshot.val();
-  
-    jQuery.each(oData, function (FBUID, ObjectData) {
-      console.log(FBUID);  
-      console.log(ObjectData.CharityName);
-
-    }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //TODO: Make this work on the admin page
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  );
-
-  });
-
-  return false;
 }
 
