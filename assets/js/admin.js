@@ -103,7 +103,7 @@ function DisplayCharityDetails(FBUID) {
             if (iLines > iRows) iRows = iLines;
 
             sData += '<div class="form-group">';
-            sData += '  <label class="col-md-4 control-label" for="' + field.name + '">' + field.name + '</label>';
+            sData += '  <label class="col-md-4 control-label" for="' + field.name + '">' + field.name.replace(/([A-Z])/g, ' $1').trim() + '</label>';
             sData += '  <div class="col-md-8">';
 
 

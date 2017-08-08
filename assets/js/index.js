@@ -2,25 +2,24 @@
 
 $(function () {
 
-  //Autosave for main data form
-  //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
-  $("form").sisyphus();
-
-
-
-
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
       SignInWithGoogle_Complete(user);
       SaveUserInfo();
       SaveData(true);
+
+      $("#bodyMain").show();
     } else {
       // User is signed out.
       $("#liLogout").show(false);
       SignInWithGoogle_Init();
     }
   });
+
+  //Autosave for main data form
+  //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
+  $("form").sisyphus();
 
   topFunction();
 
