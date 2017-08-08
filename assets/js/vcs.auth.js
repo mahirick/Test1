@@ -1,23 +1,19 @@
 
-function SignInWithGoogle() {
-
-  //FORCE Google Authentication
+function SignInWithGoogle_Init() {
   var provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope('profile');
-  firebase.auth().signInWithPopup(provider).then(function (result) {
-    var token = result.credential.accessToken;
-    user = result.user;
-    $.announce.success('Logged In');
-    SaveUserInfo();
-    LoadFormData();
+  firebase.auth().signInWithRedirect(provider);
+}
 
-  }).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
-    console.log("Error in Auth: " + errorMessage);
-  });
+function SignInWithGoogle_Complete(user) {
+  var email = user.email;
+  // var emailVerified = user.emailVerified;
+  $("#liLogout").show(true);
+
+  if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
+  if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
+
+  //$.announce.success('Logged In');  
 }
 
 

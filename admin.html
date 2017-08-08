@@ -51,9 +51,11 @@
                 <a class="navbar-brand" href="#"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <a href="#" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Charity Setup</a></li>
                     <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
+                    <li id="liLogout" name="liLogout"><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>
                     <li class="dropdown" style="display:none;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -109,6 +111,7 @@
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    
     <script>
         // Initialize Firebase
         var config = {

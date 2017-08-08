@@ -1,28 +1,24 @@
+
 $(function () {
 
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            SignInWithGoogle_Complete(user);
 
-    $('document').ready(function () {
-
-        //Handle User Auth
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                // User is signed in.  
-                $("#liLogout").show(true);
-
-                var email = user.email;
-                if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
-                if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
-                LoadMasterData();
-
-            } else {
-                // User is signed out.
-                $("#liLogout").show(false);
-                SignInWithGoogle()
-            }
-        });
-        //Scroll to the top
-        topFunction();        
+            var email = user.email;
+            if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
+            if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
+            LoadMasterData();
+        } else {
+            // User is signed out.
+            $("#liLogout").show(false);
+            SignInWithGoogle_Init();
+        }
     });
+
+    topFunction();
+
 });
 
 
@@ -48,11 +44,17 @@ function LoadMasterData() {
         $("#tbodyData").empty();
 
         jQuery.each(oData, function (FBUID, ObjectData) {
-            var lastSavedDate = new Date(ObjectData.lastSaveDate);
+            
+            var CharityName = 'Not Entered Yet';
+            if (ObjectData.CharityName) CharityName = ObjectData.CharityName;
 
+            var lastSavedDate = new Date();
+            if (ObjectData.lastSaveDate)
+                lastSavedDate = new Date(ObjectData.lastSaveDate);
+            
             sData += '<tr>';
             sData += '<td><button type="button" class="btn btn-link" onclick="return GridRowSelect_Click(\'' + FBUID + '\')";>Details</button></td>';
-            sData += '<td>' + ObjectData.CharityName + '</td>';
+            sData += '<td>' + CharityName + '</td>';
             sData += '<td>' + ObjectData.displayName + ' (' + ObjectData.email + ')</td>';
             sData += '<td>' + lastSavedDate.format("mm/dd/yyyy h:MM:ss TT") + '</td>';   //http://blog.stevenlevithan.com/archives/date-time-format
             sData += '<td>' + ObjectData.nonBlankFieldCount + '/' + ObjectData.totalFieldCount + '</td>';

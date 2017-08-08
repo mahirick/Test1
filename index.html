@@ -49,7 +49,9 @@
                 <a class="navbar-brand" href="#"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
+
+                <a href="#" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
+                <ul class="nav navbar-nav">
                     <li><a href="index.html">Charity Setup</a></li>
                     <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
                     <li id="liLogout" name="liLogout"><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>
@@ -145,9 +147,9 @@
                                     <div class="col-md-12">&nbsp;</div>
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="textinput">Charity Colors</label>
+                                        <label class="col-md-4 control-label" for="NewsfeedBackGroundColor">Charity Colors</label>
                                         <div class="col-md-8">
-                                            <input id="textinput" name="textinput" type="text" placeholder="Newsfeed background colors" class="form-control input-md">
+                                            <input id="NewsfeedBackGroundColor" name="NewsfeedBackGroundColor" type="text" placeholder="Newsfeed background colors" class="form-control input-md">
                                             <span class="help-block">What colors do you use on your website or letterhead? Specific PMS (PMS 2000) or Hex numbers (#ff0000 for example) are preferred.</span>
                                         </div>
                                     </div>
@@ -165,7 +167,7 @@
                                             <div class="col-md-12">
                                                 <button type="button" id="btnUploadCharityLogo" name="btnUploadCharityLogo" onclick="UploadFileToFBStorage('CharityLogoUL', 'CharityLogoURL');"
                                                     class="btn btn-primary">Start Upload</button>
-                                                    <span class="help-block">Select your logo using the button above then click the "Start Upload" link.</span>
+                                                <span class="help-block">Select your logo using the button above then click the "Start Upload" link.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -518,7 +520,8 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="FacebookLogin">Facebook Login</label>
                                         <div class="col-md-8">
-                                            <input id="FacebookLogin" name="FacebookLogin" type="text" placeholder="User ID or email that can post to Charity Facebook" class="form-control input-md">
+                                            <input id="FacebookLogin" name="FacebookLogin" type="text" placeholder="User ID or email that can post to Charity Facebook"
+                                                class="form-control input-md">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -531,7 +534,8 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="TwitterLogin">Twitter Login</label>
                                         <div class="col-md-8">
-                                            <input id="TwitterLogin" name="TwitterLogin" type="text" placeholder="User ID or email that can post to Charity Twitter" class="form-control input-md">
+                                            <input id="TwitterLogin" name="TwitterLogin" type="text" placeholder="User ID or email that can post to Charity Twitter"
+                                                class="form-control input-md">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -582,7 +586,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput"></label>
+                        <label class="col-md-4 control-label" for=""></label>
                         <div class="col-md-8">
                             <button id="btnSave" name="btnSave" onclick="return SaveData();" class=" btn btn-primary col-md-10">Save All Data</button>
                         </div>
@@ -605,6 +609,7 @@
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    
     <script>
         // Initialize Firebase
         var config = {

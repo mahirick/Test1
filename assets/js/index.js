@@ -8,35 +8,22 @@ $(function () {
 
 
 
-  $('document').ready(function () {
 
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // User is signed in.
-        // var displayName = user.displayName;
-        var email = user.email;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        // var providerData = user.providerData;
-        $("#liLogout").show(true);
-
-        if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
-        if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
-
-        LoadFormData();
-
-      } else {
-        // User is signed out.
-        $("#liLogout").show(false);
-        SignInWithGoogle()
-      }
-    });
-
-
-    topFunction();
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      // User is signed in.
+      SignInWithGoogle_Complete(user);
+      SaveUserInfo();
+      SaveData(true);
+    } else {
+      // User is signed out.
+      $("#liLogout").show(false);
+      SignInWithGoogle_Init();
+    }
   });
+
+  topFunction();
+
 });
 
 
@@ -47,7 +34,7 @@ function SaveUserInfo() {
   var pURL = '';
   var displayName = '';
 
-  user.providerData.forEach(function (profile) {
+  oUser.providerData.forEach(function (profile) {
     if (profile.providerId == 'google.com') {
       pURL = profile.photoURL;
       displayName = profile.displayName;
@@ -60,7 +47,7 @@ function SaveUserInfo() {
     photoURL: pURL
   };
 
-  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+  var oFBDB = firebase.database().ref('ViewsparkClientInfo/' + oUser.uid);
 
   // oFBDB.on('value', function (snap) {
   //   console.log(snap.val());
@@ -75,7 +62,7 @@ function SaveUserInfo() {
 }
 
 //Save form data to Firebase DB
-function SaveData() {
+function SaveData(bSupressAnnounce) {
   var user = firebase.auth().currentUser;
   sData = JSON.stringify($('#frmClient').serializeArray());
 
@@ -104,7 +91,7 @@ function SaveData() {
         firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/lastSaveDate').set(firebase.database.ServerValue.TIMESTAMP);
 
         LoadFormData();
-        $.announce.success('Data Saved.');
+        if (! bSupressAnnounce) $.announce.success('Data Saved.');
       }
     }
   );
