@@ -36,24 +36,15 @@
     <![endif]-->
 
     <style>
-        @media (min-width: 0px) {
-            #PageBG {
-                background-color: #d1d1d1;
-                height: 827px;
-            }
-            body {
-                background-color: #e8e8e8;
-            }
+        
+
+        #PageBG {
+            background-image: url('assets/img/VSBackground.jpg');
+            height: 827px;
         }
 
-        @media (min-width: 1200px) {
-            #PageBG {
-                background-image: url('assets/img/VSBackground.jpg');
-                height: 827px;
-            }
-            body {
-                background-color: #e8e8e8;
-            }
+        body {
+            background-color: #e8e8e8;
         }
     </style>
 
@@ -75,12 +66,12 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
-                <a href="#" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
+                <a href="index.html" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="setup.html">Charity Setup</a></li>
-                    <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
-                    <li id="liLogout" name="liLogout"><a onclick="return Logout();" href="javascript:void(0);">Logout</a></li>
+                    <li id="liAdmin"><a href="admin.html">Admin</a></li>
+                    <li id="liLogout"><a onclick="return Logout();" href="javascript:void(0);">Logout</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -93,7 +84,7 @@
 
                 <div class="col-md-6">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="background-color: #CDCDCD;">
                     <h1>Viewspark Donor App Setup</h1>
                     <h4>Welcome to the Donor App Setup application exclusively for the Viewspark system. This site is used by
                         Viewspark clients to securly provide the details necessary to configure new mobile Apps. </h4>
@@ -113,8 +104,7 @@
                                         alt="Google">here</a>.</h4>
                             </li>
                             <li>
-                                <p></p>
-                                <h4></h4>
+                                <p>Get Started <a href="setup.html" alt="Get Started">By Clicking Here</a></p>
                             </li>
                         </ul>
                     </h3>

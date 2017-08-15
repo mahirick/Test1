@@ -4,7 +4,9 @@ $(function () {
     //Reject old browsers
     $.reject({
         reject: {
-            msie: 10
+            msie: 9,
+            msie: 8,
+            msie: 7
             // safari: true, // Apple Safari  
             // chrome: true, // Google Chrome  
             // firefox: true, // Mozilla Firefox  

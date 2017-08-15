@@ -51,12 +51,12 @@
                 <a class="navbar-brand" href="#"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <a href="#" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
+                <a href="index.html" class="navbar-left"><img src="assets/img/Viewspark.png" class="img-fluid" height="40" alt="Viewspark"></a>
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="setup.html">Charity Setup</a></li>
-                    <li id="liAdmin" name="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
-                    <li id="liLogout" name="liLogout"><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>                    
+                    <li id="liAdmin" style="display: none;"><a href="admin.html">Admin</a></li>
+                    <li id="liLogout"><a onclick="Logout();" href="javascript:void(0);">Logout</a></li>                    
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -64,7 +64,7 @@
     </nav>
 
     <div class="container">
-        <div class="row" id="divMainRow" name="divMainRow">
+        <div class="row" id="divMainRow" name="divMainRow" style="display: none;">
 
             <table id="gridMaster" class="table table-condensed table-hover table-striped">
                 <thead>
@@ -79,7 +79,6 @@
                 <tbody id="tbodyData" name="tbodyData">                    
                 </tbody>
             </table>
-
 
             <div class="form-group text-center" id="divRefreshData">                
                 <div class="col-md-12 text-center">

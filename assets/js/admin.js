@@ -1,30 +1,30 @@
 
 $(function () {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            SignInWithGoogle_Complete(user);
 
+            var email = user.email;
+            if ((email.toLowerCase().indexOf('mahisoft.com') > -1) || (email.toLowerCase().indexOf('viewspark.org') > -1)) {
+                $("#liAdmin").show(500);
+                $('#divMainRow').show(500);
+            } else {
+                $("#liAdmin").hide(500);
+                alert('Not authorized for admin.');
+                window.location.href = 'index.html';
+            }
 
+            LoadMasterData();
+        } else {
+            // User is signed out.
+            $("#liLogout").show(false);
+            SignInWithGoogle_Init();
+        }
+    });
 
+    topFunction();
 });
-
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        // User is signed in.
-        console.log('Already Logged in.');
-        SignInWithGoogle_Complete(user);
-
-        var email = user.email;
-        if (email.toLowerCase().indexOf('mahisoft.com') > -1) $("#liAdmin").show(500);
-        if (email.toLowerCase().indexOf('viewspark.org') > -1) $("#liAdmin").show(500);
-        LoadMasterData();
-    } else {
-        // User is signed out.
-        console.log('Logging in.');
-        $("#liLogout").show(false);
-        SignInWithGoogle_Init();
-    }
-});
-
-topFunction();
-
 
 //Navigate page to the top when an accordian pane is clicked
 function topFunction() {
@@ -32,11 +32,26 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }
 
+function addTextAreaEvents() {
+
+    $('#frmClient textarea').focus(function () {
+        var $this = $(this);
+        $this.select();
+
+        // Work around Chrome's little problem
+        $this.mouseup(function () {
+            // Prevent further mouseup intervention
+            $this.unbind("mouseup");
+            return false;
+        });
+    });
+
+}
+
 //Admin functions
 function LoadMasterData() {
 
     var user = firebase.auth().currentUser;
-
 
     //Get data from firebase
     var oFBDB = firebase.database().ref('ViewsparkClientInfo');
@@ -81,8 +96,6 @@ function GridRowSelect_Click(FBUID) {
 
 function DisplayCharityDetails(FBUID) {
 
-    console.log("DisplayCharityDetails");
-
     $("#gridMaster").hide(300);
     $("#divRefreshData").hide(300);
     $("#divMainRow").hide(1);
@@ -110,13 +123,13 @@ function DisplayCharityDetails(FBUID) {
             sData += '  <div class="col-md-8">';
 
 
-            if (field.name.substring(field.name.length - 3) == "URL") {
+            if (field.name.substring(field.name.length - 3) == "URL" && (field.value != '')) {
                 //hyper link field
                 sData += '    <a href="' + field.value + '" target="_blank">';
-                sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80">' + field.value + '</textarea>';
+                sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80" readonly>' + field.value + '</textarea>';
                 sData += '    </a>';
             } else {
-                sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80">' + field.value + '</textarea>';
+                sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80" readonly>' + field.value + '</textarea>';
             }
 
 
@@ -129,5 +142,7 @@ function DisplayCharityDetails(FBUID) {
         $("#divMainRow").empty();
         $("#divMainRow").append(sData);
         $("#divMainRow").show(500);
+
+        addTextAreaEvents();
     });
 }

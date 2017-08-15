@@ -2,6 +2,7 @@
 
 $(function () {
 
+
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
@@ -12,23 +13,19 @@ $(function () {
       $("#bodyMain").show();
     } else {
       // User is signed out.
-      $("#liLogout").show(false);
+      $("#liLogout").hide();
       SignInWithGoogle_Init();
     }
-
-    //Autosave for main data form
-    //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
-    $("form").sisyphus();
-
-    topFunction();
-
   });
+
+  //Autosave for main data form
+  //https://www.smashingmagazine.com/2011/12/sisyphus-js-client-side-drafts-and-more/
+  $("form").sisyphus();
+
+  topFunction();
 
 
 });
-
-
-
 
 
 
@@ -137,7 +134,8 @@ function LoadFormData() {
     firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/nonBlankFieldCount').set(iNonBlankFields);
 
     //Count total data fields
-    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/totalFieldCount').set($('.form-horizontal *').filter(':input').not(':button, :submit').length);
+    var iFields = $('.form-horizontal *').filter(':input').not(':button, :submit').length - 6;
+    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/totalFieldCount').set(iFields);
 
   });
 }
