@@ -24,6 +24,10 @@ $(function () {
 
   topFunction();
 
+  //Set masks for data input  
+  $("input[id$='Phone']").mask("(999) 999-9999");
+  
+  
 
 });
 
@@ -137,7 +141,49 @@ function LoadFormData() {
     var iFields = $('.form-horizontal *').filter(':input').not(':button, :submit').length - 6;
     firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/totalFieldCount').set(iFields);
 
+    //Handle Setup Complete Button
+    oFBDB = firebase.database().ref('ViewsparkClientInfo/' + user.uid);
+    oFBDB.once('value').then(function (snapshot) {
+
+      var bsetupMarkedCompleted = snapshot.child('setupMarkedCompleted').val();
+      if (bsetupMarkedCompleted == null) bsetupMarkedCompleted = false;
+      
+      $("#btnSubmitAsCompleted").off("click");  //Remove any events that might already be there
+      if (bsetupMarkedCompleted) {
+        $("#btnSubmitAsCompleted").on("click", { b: false }, SubmitAsCompleted_Click);
+        $("#btnSubmitAsCompleted").text('Mark NOT Completed');
+      }
+      else {
+        $("#btnSubmitAsCompleted").on("click", { b: true }, SubmitAsCompleted_Click);
+        $("#btnSubmitAsCompleted").text('Mark As Completed');
+      }
+    });
   });
+}
+
+//Mark the application as complete
+function SubmitAsCompleted_Click(event) {
+
+  var user = firebase.auth().currentUser;
+  var oDate = new Date();
+  $("#btnSubmitAsCompleted").off("click");
+
+  firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/setupMarkedCompleted').set(event.data.b);
+
+  if (event.data.b) {
+    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/setupMarkedCompletedDate').set(firebase.database.ServerValue.TIMESTAMP).then(function (){ console.log("Marked complete");});
+    $("#btnSubmitAsCompleted").text('Mark NOT Completed');
+    $("#btnSubmitAsCompleted").on("click", { b: false }, SubmitAsCompleted_Click);
+    $.announce.success('Setup Marked Complete');
+  } else {
+    firebase.database().ref('ViewsparkClientInfo/' + user.uid + '/setupMarkedCompletedDate').set("").then(function (){ console.log("Marked NOT complete");});
+    $("#btnSubmitAsCompleted").on("click", { b: true }, SubmitAsCompleted_Click);
+    $("#btnSubmitAsCompleted").text('Mark As Completed');
+    $.announce.success('Setup Marked NOT Complete');
+  }
+
+
+  return false;
 }
 
 function UploadFileToFBStorage(sULFieldName, sFieldName) {

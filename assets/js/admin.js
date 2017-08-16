@@ -69,13 +69,23 @@ function LoadMasterData() {
             var lastSavedDate = new Date();
             if (ObjectData.lastSaveDate)
                 lastSavedDate = new Date(ObjectData.lastSaveDate);
+            var setupMarkedCompleted = '';
+            var setupMarkedCompletedDateTitle = 'Setup Not Marked Complete.';
+
+            if (ObjectData.setupMarkedCompleted) {
+                setupMarkedCompleted = 'checked';
+                
+                oDate = new Date(ObjectData.setupMarkedCompletedDate);
+                setupMarkedCompletedDateTitle = 'Submitted Complete On: ' + oDate.format("mm/dd/yyyy h:MM:ss TT");
+            }
 
             sData += '<tr>';
             sData += '<td><button type="button" class="btn btn-link" onclick="return GridRowSelect_Click(\'' + FBUID + '\')";>Details</button></td>';
             sData += '<td>' + CharityName + '</td>';
             sData += '<td>' + ObjectData.displayName + ' (' + ObjectData.email + ')</td>';
             sData += '<td>' + lastSavedDate.format("mm/dd/yyyy h:MM:ss TT") + '</td>';   //http://blog.stevenlevithan.com/archives/date-time-format
-            sData += '<td>' + ObjectData.nonBlankFieldCount + '/' + ObjectData.totalFieldCount + '</td>';
+            sData += '<td class="text-center">' + ObjectData.nonBlankFieldCount + '/' + ObjectData.totalFieldCount + '</td>';
+            sData += '<td class="text-center"><input type="checkbox" ' + setupMarkedCompleted + ' disabled title="' + setupMarkedCompletedDateTitle + '"></td>';
             sData += '</tr>\n';
         });
 
@@ -127,11 +137,11 @@ function DisplayCharityDetails(FBUID) {
                 //hyper link field
                 sData += '    <a href="' + field.value + '" target="_blank">';
                 sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80" readonly>' + field.value + '</textarea>';
-                sData += '    </a>';
-            } else {
-                sData += '    <textarea name="' + field.name + '" rows="' + iRows + '" cols="80" readonly>' + field.value + '</textarea>';
+                sData += '    </a>';            
+            }            
+            else {
+                sData += '    <textarea id="' + field.name + '" name="' + field.name + '" rows="' + iRows + '" cols="80" readonly>' + field.value + '</textarea>';
             }
-
 
             sData += '</div>';
             sData += '</div>';

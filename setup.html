@@ -72,7 +72,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse1"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse1"
                                         data-parent="#accordion" onclick="topFunction();">1) CHARITY INFO</button>
                                 </h4>
                             </div>
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <div class="col-md-4">&nbsp;</div>
                                         <div class="col-md-4">
-                                            <button id="btnSave1" name="btnSave1" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
+                                            <button type="button" id="btnSave1" name="btnSave1" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
                                         </div>
                                         <div class="col-md-4">&nbsp;</div>
                                     </div>
@@ -125,7 +125,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse2"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse2"
                                         data-parent="#accordion" onclick="topFunction();">2) DESIGN</button>
                                 </h4>
                             </div>
@@ -264,7 +264,7 @@
                                     <div class="form-group">
                                         <div class="col-md-4">&nbsp;</div>
                                         <div class="col-md-4">
-                                            <button id="btnSave2" name="btnSave2" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
+                                            <button type="button" id="btnSave2" name="btnSave2" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
                                         </div>
                                         <div class="col-md-4">&nbsp;</div>
                                     </div>
@@ -277,7 +277,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse3"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse3"
                                         data-parent="#accordion" onclick="topFunction();">3) APP INFO</button>
                                 </h4>
                             </div>
@@ -313,7 +313,7 @@
                                     <div class="form-group">
                                         <div class="col-md-4">&nbsp;</div>
                                         <div class="col-md-4">
-                                            <button id="btnSave3" name="btnSave3" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
+                                            <button type="button" id="btnSave3" name="btnSave3" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
                                         </div>
                                         <div class="col-md-4">&nbsp;</div>
                                     </div>
@@ -324,88 +324,163 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse4"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse4"
                                         data-parent="#accordion" onclick="topFunction();">4) USERS</button>
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <div class="col-md-12">Please provide the names and email addresses for up to 3 Administrators on a seperate
-                                        line below. These users will have the ability to create additional users in the app.
+                                    <div class="col-md-12">Please provide the names and email addresses for up to 5 users below. ADMIN users have
+                                        full control in the Viewspark application while Publishers are allowed to create
+                                        and publish content and Subscribers can only create and submit content for approval
+                                        prior to publication.
                                         <span style="color: #ff0000">At least one Administrative user is required.</span></div>
                                     <div class="col-md-12">&nbsp;</div>
 
+                                    <!--User 1-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin1Name">Admin 1 Name</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin1Name" name="Admin1Name" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User1Name">User 1</label>
+                                        <div class="col-md-3">
+                                            <input id="User1Name" name="User1Name" type="text" placeholder="Name" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User1Email" name="User1Email" type="text" placeholder="Email" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User1Phone" name="User1Phone" type="text" placeholder="Phone #" maxlength="" class="form-control input-md">
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin1Email">Admin 1 Email</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin1Email" name="Admin1Email" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User1RoleAdmin">&nbsp;</label>
+                                        <div class="col-md-2">
+                                            <label><input id="User1RoleAdmin" name="User1RoleAdmin" type="checkbox"> Admin</label>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin1Phone">Admin 1 Phone</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin1Phone" name="Admin1Phone" type="text" placeholder="" maxlength="" class="form-control input-md">
+                                        <div class="col-md-2">
+                                            <label><input id="User1RolePublisher" name="User1RolePublisher" type="checkbox"> Publisher</label>
                                         </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User1RoleCollaborator" name="User1RoleCollaborator" type="checkbox"> Collaborator</label>
+                                        </div>
+                                        <div class="col-md-3">&nbsp;</div>
                                     </div>
-
                                     <div class="form-group col-md-12">&nbsp;</div>
 
+                                    <!--User 2-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin2Name">Admin 2 Name</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin2Name" name="Admin2Name" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User2Name">User 2</label>
+                                        <div class="col-md-3">
+                                            <input id="User2Name" name="User2Name" type="text" placeholder="Name" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User2Email" name="User2Email" type="text" placeholder="Email" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User2Phone" name="User2Phone" type="text" placeholder="Phone #" maxlength="" class="form-control input-md">
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin2Email">Admin 2 Email</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin2Email" name="Admin2Email" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User2RoleAdmin">&nbsp;</label>
+                                        <div class="col-md-2">
+                                            <label><input id="User2RoleAdmin" name="User2RoleAdmin" type="checkbox"> Admin</label>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin2Phone">Admin 2 Phone</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin2Phone" name="Admin2Phone" type="text" placeholder="" maxlength="" class="form-control input-md">
+                                        <div class="col-md-2">
+                                            <label><input id="User2RolePublisher" name="User2RolePublisher" type="checkbox"> Publisher</label>
                                         </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User2RoleCollaborator" name="User2RoleCollaborator" type="checkbox"> Collaborator</label>
+                                        </div>
+                                        <div class="col-md-3">&nbsp;</div>
                                     </div>
-
                                     <div class="form-group col-md-12">&nbsp;</div>
 
+                                    <!--User 3-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin3Name">Admin 3 Name</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin3Name" name="Admin3Name" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User3Name">User 3</label>
+                                        <div class="col-md-3">
+                                            <input id="User3Name" name="User3Name" type="text" placeholder="Name" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User3Email" name="User3Email" type="text" placeholder="Email" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User3Phone" name="User3Phone" type="text" placeholder="Phone #" maxlength="" class="form-control input-md">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="User3RoleAdmin">&nbsp;</label>
+                                        <div class="col-md-2">
+                                            <label><input id="User3RoleAdmin" name="User3RoleAdmin" type="checkbox"> Admin</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User3RolePublisher" name="User3RolePublisher" type="checkbox"> Publisher</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User3RoleCollaborator" name="User3RoleCollaborator" type="checkbox"> Collaborator</label>
+                                        </div>
+                                        <div class="col-md-3">&nbsp;</div>
+                                    </div>
+                                    <div class="form-group col-md-12">&nbsp;</div>
 
+                                    <!--User 4-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin3Email">Admin 3 Email</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin3Email" name="Admin3Email" type="text" placeholder="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User4Name">User 4</label>
+                                        <div class="col-md-3">
+                                            <input id="User4Name" name="User4Name" type="text" placeholder="Name" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User4Email" name="User4Email" type="text" placeholder="Email" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User4Phone" name="User4Phone" type="text" placeholder="Phone #" maxlength="" class="form-control input-md">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="User4RoleAdmin">&nbsp;</label>
+                                        <div class="col-md-2">
+                                            <label><input id="User4RoleAdmin" name="User4RoleAdmin" type="checkbox"> Admin</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User4RolePublisher" name="User4RolePublisher" type="checkbox"> Publisher</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User4RoleCollaborator" name="User4RoleCollaborator" type="checkbox"> Collaborator</label>
+                                        </div>
+                                        <div class="col-md-3">&nbsp;</div>
+                                    </div>
+                                    <div class="form-group col-md-12">&nbsp;</div>
 
+                                    <!--User 5-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Admin3Phone">Admin 3 Phone</label>
-                                        <div class="col-md-8">
-                                            <input id="Admin3Phone" name="Admin3Phone" type="text" placeholder="" maxlength="" class="form-control input-md">
+                                        <label class="col-md-3 control-label" for="User5Name">User 5</label>
+                                        <div class="col-md-3">
+                                            <input id="User5Name" name="User5Name" type="text" placeholder="Name" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User5Email" name="User5Email" type="text" placeholder="Email" class="form-control input-md">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input id="User5Phone" name="User5Phone" type="text" placeholder="Phone #" maxlength="" class="form-control input-md">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="User5RoleAdmin">&nbsp;</label>
+                                        <div class="col-md-2">
+                                            <label><input id="User5RoleAdmin" name="User5RoleAdmin" type="checkbox"> Admin</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User5RolePublisher" name="User5RolePublisher" type="checkbox"> Publisher</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><input id="User5RoleCollaborator" name="User5RoleCollaborator" type="checkbox"> Collaborator</label>
+                                        </div>
+                                        <div class="col-md-3">&nbsp;</div>
+                                    </div>
+                                    <div class="form-group col-md-12">&nbsp;</div>
 
                                     <div class="form-group">
                                         <div class="col-md-4">&nbsp;</div>
                                         <div class="col-md-4">
-                                            <button id="btnSave11" name="btnSave11" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
+                                            <button type="button" id="btnSave11" name="btnSave11" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
                                         </div>
                                         <div class="col-md-4">&nbsp;</div>
                                     </div>
@@ -416,7 +491,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse5"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse5"
                                         data-parent="#accordion" onclick="topFunction();">5) DONOR DB</button>
                                 </h4>
                             </div>
@@ -480,7 +555,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-primary" style="width: 100%; text-align: Left;" type="button" data-toggle="collapse" data-target="#collapse6"
+                                    <button type="button" class="btn btn-primary" style="width: 100%; text-align: Left;" data-toggle="collapse" data-target="#collapse6"
                                         data-parent="#accordion" onclick="topFunction();">6) SOCIAL SETUP</button>
                                 </h4>
                             </div>
@@ -500,10 +575,7 @@
 
                                     <div class="col-md-12"></div>
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="PostmasterAcctCreated">postmaster@yourorgname.org created</label>
-                                        <div class="col-md-8">
-                                            <input type="checkbox" name="PostmasterAcctCreated" id="PostmasterAcctCreated" value="1">
-                                        </div>
+                                        <label class="col-md-12 text-center" for="PostmasterAcctCreated"><input type="checkbox" name="PostmasterAcctCreated" id="PostmasterAcctCreated" value="1"> postmaster@yourorgname.org has been created</label>                                        
                                     </div>
 
                                     <div class="col-md-12">
@@ -583,13 +655,15 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-4">&nbsp;</div>
+                        <div class="col-md-2">&nbsp;</div>
                         <div class="col-md-4">
-                            <button id="btnSave" name="btnSave" onclick="return SaveData();" class=" btn btn-primary btn-block">Save Everything</button>
+                            <button type="button" id="btnSave" name="btnSave" onclick="return SaveData();" class="btn btn-primary btn-block">Save Everything</button>
                         </div>
-                        <div class="col-md-4">&nbsp;</div>
+                        <div class="col-md-4">
+                            <button type="button" id="btnSubmitAsCompleted" name="btnSubmitAsCompleted" class="btn btn-primary btn-block">Submit As Completed</button>
+                        </div>
+                        <div class="col-md-2">&nbsp;</div>
                     </div>
-
 
 
                 </div>
@@ -598,7 +672,7 @@
             </form>
         </div>
 
-        <footer class="footer">
+        <footer class="footer text-center">
             <p>&copy; 2016 Viewspark, Inc.</p>
         </footer>
 
@@ -619,7 +693,6 @@
             messagingSenderId: "781797774953"
         };
         firebase.initializeApp(config);
-
     </script>
     <!-- /Firebase -->
 
@@ -639,6 +712,8 @@
     <link href="assets/css/jquery.announce.css" rel="stylesheet">
     <script src="assets/js/jquery.announce.min.js"></script>
 
+    <!--//http://digitalbush.com/projects/masked-input-plugin/-->
+    <script src="assets/js/jquery.maskedinput.min.js" type="text/javascript"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
